@@ -28,10 +28,13 @@ urlpatterns = [
     url(r'^api/get-profile/$',GetProfileView.as_view(),name='profile_list'),
     url(r'^api/get-user-info/$',GetUserInfoView.as_view(),name='profile_list'),
     url(r'^api/add-user-info/$',AddUserInfoView.as_view(),name='profile_list'),
+<<<<<<< HEAD
     url(r'^api/follow-list/$',FollowView.as_view(),name='profile_list'),
     url(r'^api/following-list/$',FollowingView.as_view(),name='profile_list'),
     url(r'^api/start-follow/$',register_Follow.as_view(),name='profile_list'),
     url(r'^api/blog-info/$',BlogInfoView.as_view(),name='profile_list'),
+=======
+>>>>>>> d6825fdada2f612fe02d3fbe385363e232269888
     
 ]
     

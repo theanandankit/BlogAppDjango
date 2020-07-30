@@ -60,6 +60,7 @@ class AddUserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model =User_info
         fields='__all__'
+<<<<<<< HEAD
 
 
 # for follower list 
@@ -105,3 +106,12 @@ class bloginfoserializer(serializers.ModelSerializer):
         model = Blog_info
         fields = ['id','url','title','body','date','category','author']
         depth = 1
+=======
+    
+
+
+    
+
+    
+
+>>>>>>> d6825fdada2f612fe02d3fbe385363e232269888
