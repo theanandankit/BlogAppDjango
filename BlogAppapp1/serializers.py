@@ -43,6 +43,23 @@ class GetProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username','first_name','last_name', 'email']
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User_info
+        fields='__all__'
+
+class GetUserInfoSerializer(serializers.ModelSerializer):
+    user_details=UserInfoSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name', 'email','user_details']
+
+
+class AddUserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =User_info
+        fields='__all__'
     
 
 

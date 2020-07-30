@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth import logout
+from rest_framework import generics
 
 # Create your views here.
 class register_new_user(APIView):
@@ -52,6 +53,7 @@ class login(APIView):
                     self.object.save(update_fields=['last_login'])
                     val={}
                     val['Token']=Token.objects.get(user=self.object).key
+                    val['Id']= self.object.id
                     return Response(val)
                 else:
                     return Response({'error':'Incorrect password'})
@@ -113,6 +115,7 @@ class EditProfileView(APIView):
 
 class GetProfileView(APIView):
 
+
         permission_classes = (IsAuthenticated,)
 
         def get(self, request):
@@ -121,6 +124,26 @@ class GetProfileView(APIView):
             self.object = Token.objects.get(key= token ).user
             serializer = GetProfileSerializer(self.object)
             return Response(serializer.data)
+
+class GetUserInfoView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = GetUserInfoSerializer
+
+    def get_queryset(self):
+        queryset=User.objects.all()
+        user_id=self.request.query_params.get('user_id', '')
+        return queryset.filter(id=user_id)
+
+class AddUserInfoView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = AddUserInfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

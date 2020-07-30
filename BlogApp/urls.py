@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^api/login/$',login.as_view(),name='profile_list'),
     url(r'^api/edit-profile/$',EditProfileView.as_view(),name='profile_list'),
     url(r'^api/get-profile/$',GetProfileView.as_view(),name='profile_list'),
+    url(r'^api/get-user-info/$',GetUserInfoView.as_view(),name='profile_list'),
+    url(r'^api/add-user-info/$',AddUserInfoView.as_view(),name='profile_list'),
     
 ]
     
