@@ -144,7 +144,6 @@ class AddUserInfoView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-<<<<<<< HEAD
 class FollowView(generics.ListAPIView):
     permission_classes=(IsAuthenticated,)
     serializer_class = follownestedSerializer
@@ -185,13 +184,4 @@ class BlogInfoView(generics.ListAPIView):
         queryset=Blog_info.objects.all()
         _id=self.request.query_params.get('id', '')
         return queryset.filter(id=_id)
-        
-=======
-
-
-
-                    
-
-
-                
->>>>>>> d6825fdada2f612fe02d3fbe385363e232269888
+    

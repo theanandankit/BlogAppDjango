@@ -20,7 +20,6 @@ class User_info(models.Model):
 
     def __str__(self):
         return self.description
-<<<<<<< HEAD
 
 
 class Following_info(models.Model):
@@ -34,5 +33,3 @@ class Blog_info(models.Model):
     date=models.DateField(auto_now_add=True)
     category=models.CharField(max_length=20)
     author=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='author_name')
-=======
->>>>>>> d6825fdada2f612fe02d3fbe385363e232269888
