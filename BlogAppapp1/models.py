@@ -20,3 +20,16 @@ class User_info(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Following_info(models.Model):
+    who=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='person_list1')
+    whom=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='person_list2')
+
+class Blog_info(models.Model):
+    url=models.CharField(max_length=150)
+    title=models.CharField(max_length=50)
+    body=models.CharField(max_length=2000)
+    date=models.DateField(auto_now_add=True)
+    category=models.CharField(max_length=20)
+    author=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='author_name')

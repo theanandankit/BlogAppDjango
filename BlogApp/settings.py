@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i+1=w7fjacrbk@-a!#kb8gf9cf!z)-s3e*&6#0fv!i-8k30i04'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = ['blog-app-django-16.herokuapp.com']
+DEBUG = True
 
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'BlogAppapp1',
     'rest_framework.authtoken',
-    'rest_auth',
-    
+
+    # 'rest_auth',
+
+
 ]
 AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',

@@ -60,10 +60,48 @@ class AddUserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model =User_info
         fields='__all__'
+
+
+# for follower list 
+
+class followSerializer(serializers.ModelSerializer):
+
     
+    class Meta:
+        model = Following_info
+        fields=['who']
+        depth=1
 
+class follownestedSerializer(serializers.ModelSerializer):
+    person_list2=followSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name', 'email','person_list2']
 
-    
+class followingSerializer(serializers.ModelSerializer):
 
-    
+    class Meta:
+        model = Following_info
+        fields=['whom']
+        depth = 1
 
+class followingnestedSerializer(serializers.ModelSerializer):
+    person_list1=followingSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name', 'email','person_list1']
+
+class followtableserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Following_info
+        fields = '__all__'
+
+## Blog APIs
+
+class bloginfoserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog_info
+        fields = ['id','url','title','body','date','category','author']
+        depth = 1

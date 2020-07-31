@@ -144,10 +144,44 @@ class AddUserInfoView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class FollowView(generics.ListAPIView):
+    permission_classes=(IsAuthenticated,)
+    serializer_class = follownestedSerializer
 
+    def get_queryset(self):
+        queryset=User.objects.all()
+        user_id=self.request.query_params.get('id', '')
+        return queryset.filter(id=user_id)
 
+class FollowingView(generics.ListAPIView):
+    permission_classes=(IsAuthenticated,)
+    serializer_class = followingnestedSerializer
 
-                    
+    def get_queryset(self):
+        queryset=User.objects.all()
+        user_id=self.request.query_params.get('id', '')
+        return queryset.filter(id=user_id)
 
+class register_Follow(APIView):
+    def post(self, request):
+        serializers=followtableserializer(data=request.data)
+        val= {}
+        if serializers.is_valid():
+            users=serializers.save()
+            val['Response']="Successfully follow"
+            return Response(val)
+        else:
+            val= serializers.errors
+            return Response(val)
 
-                
+## Blog Views
+
+class BlogInfoView(generics.ListAPIView):
+
+    serializer_class=bloginfoserializer
+
+    def get_queryset(self):
+        queryset=Blog_info.objects.all()
+        _id=self.request.query_params.get('id', '')
+        return queryset.filter(id=_id)
+    
