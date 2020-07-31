@@ -184,4 +184,49 @@ class BlogInfoView(generics.ListAPIView):
         queryset=Blog_info.objects.all()
         _id=self.request.query_params.get('id', '')
         return queryset.filter(id=_id)
+
+class CreateGroupView(APIView):
+
+    def post(self,request):
+        serializer = CreateGroupSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data.get('group_code'))
+        else:
+            return Response(serializer.errors)
+
+class JoinGroupView(APIView):
+    permission_classes=(IsAuthenticated,)
+
+    def post(self,request):
+        model =Groups
+        serializer = JoinGroupSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                group = Groups.objects.get(group_code=request.data.get('group_code'))         
+            except Groups.DoesNotExist:
+                group = None
+            if group is not None:
+                self.object = self.request.user
+                data={'group_id':group.group_id,'member_id':self.object.id}
+                serializer2= GroupMemberSerializer(data=data)
+                if serializer2.is_valid():
+                    serializer2.save()
+                    return Response("Saved")
+                else:
+                    return Response(serializer2.errors)
+                return Response("Valid")
+            else:
+                return Response("Invalid Code")
+        else:
+            return Response(serializer.errors)
+
+
+class GroupInfoView(generics.ListAPIView):
+    serializer_class = GroupInfoSerializer
+
+    def get_queryset(self):
+        queryset = Groups.objects.all()
+        group_id = self.request.query_params.get('group_id', '')
+        return queryset.filter(group_id=group_id)
     

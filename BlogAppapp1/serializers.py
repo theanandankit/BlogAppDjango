@@ -105,3 +105,52 @@ class bloginfoserializer(serializers.ModelSerializer):
         model = Blog_info
         fields = ['id','url','title','body','date','category','author']
         depth = 1
+
+class CreateGroupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Groups
+        fields = ['group_id','group_description','creator_id','group_code']
+
+class JoinGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Groups
+        fields = ['group_code']
+
+class GroupMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= GroupMembers
+        fields = '__all__'
+
+class GetMemberInfoSerailizer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username','first_name','last_name']
+
+class GroupMemberInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupMembers
+        fields = ['member_id']
+        depth =1
+
+
+
+class GroupInfoSerializer(serializers.ModelSerializer):
+    # members = serializers.SerializerMethodField
+
+    # def get_member_info(self, obj):
+    #     # this will find all categories with a venue in given area
+    #     print(obj)
+    #     members = User.objects.filter(id=obj)
+    #     serializer = GetMemberInfoSerailizer(members, many=True)
+    #     return serializer.data
+    members = GroupMemberInfoSerializer(many=True)
+
+    class Meta:
+        model = Groups
+        fields = ['group_id','group_description','members','creator_id']
+    
+    
+
+
+        

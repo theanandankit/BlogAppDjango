@@ -5,3 +5,5 @@ from BlogAppapp1.models import *
 admin.site.register(User_info)
 admin.site.register(Following_info)
 admin.site.register(Blog_info)
+admin.site.register(Groups)
+admin.site.register(GroupMembers)
