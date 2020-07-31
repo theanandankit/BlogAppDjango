@@ -32,6 +32,11 @@ urlpatterns = [
     url(r'^api/following-list/$',FollowingView.as_view(),name='profile_list'),
     url(r'^api/start-follow/$',register_Follow.as_view(),name='profile_list'),
     url(r'^api/blog-info/$',BlogInfoView.as_view(),name='profile_list'),
+    url(r'^api/create-group/$',CreateGroupView.as_view(),name='profile_list'),
+    url(r'^api/join-group/$',JoinGroupView.as_view(),name='profile_list'),
+    url(r'^api/group-info/$',GroupInfoView.as_view(),name='profile_list'),
+    
+
     
 ]
     

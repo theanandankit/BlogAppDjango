@@ -33,3 +33,13 @@ class Blog_info(models.Model):
     date=models.DateField(auto_now_add=True)
     category=models.CharField(max_length=20)
     author=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='author_name')
+
+class Groups(models.Model):
+    group_id=models.CharField(max_length=10, unique=True)
+    group_description=models.CharField(max_length=100)
+    creator_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="creator_details")
+    group_code=models.CharField(max_length=6)
+
+class GroupMembers(models.Model):
+    group_id = models.ForeignKey(Groups, to_field='group_id', on_delete=models.CASCADE, related_name="members")
+    member_id = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="member_info")
