@@ -35,8 +35,9 @@ urlpatterns = [
     url(r'^api/create-group/$',CreateGroupView.as_view(),name='profile_list'),
     url(r'^api/join-group/$',JoinGroupView.as_view(),name='profile_list'),
     url(r'^api/group-info/$',GroupInfoView.as_view(),name='profile_list'),
-    
-
+    url(r'^api/full-profile-info/$',FullProfileInfoView.as_view(),name='profile_list'),
+    url(r'^api/add-blog/$',BlogaddView.as_view(),name='profile_list'),
+    url(r'^api/search-blog/$',BlogSearchView.as_view(),name='profile_list'),
+    url(r'^api/search-profile/$',ProfileSearchView.as_view(),name='profile_list'),
     
 ]
-    
