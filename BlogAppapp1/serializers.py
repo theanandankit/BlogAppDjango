@@ -106,6 +106,11 @@ class bloginfoserializer(serializers.ModelSerializer):
         fields = ['id','url','title','body','date','category','author']
         depth = 1
 
+class blogaddserializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog_info
+        fields = ['url','title','body','category','author']
+
 class CreateGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -136,21 +141,45 @@ class GroupMemberInfoSerializer(serializers.ModelSerializer):
 
 
 class GroupInfoSerializer(serializers.ModelSerializer):
-    # members = serializers.SerializerMethodField
-
-    # def get_member_info(self, obj):
-    #     # this will find all categories with a venue in given area
-    #     print(obj)
-    #     members = User.objects.filter(id=obj)
-    #     serializer = GetMemberInfoSerailizer(members, many=True)
-    #     return serializer.data
     members = GroupMemberInfoSerializer(many=True)
 
     class Meta:
         model = Groups
         fields = ['group_id','group_description','members','creator_id']
-    
-    
 
 
-        
+# profile full info
+
+class ListFollow(serializers.ModelSerializer):
+    class Meta:
+        model = Following_info
+        fields = ['who']
+
+class ListFollowing(serializers.ModelSerializer):
+    class Meta:
+        model = Following_info
+        fields = ['whom']
+
+class ListOfBlog(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog_info
+        fields = ['id','url','title','body','category','author']
+
+class GetFullProfileInfoSerializer(serializers.ModelSerializer):
+
+    author_name=ListOfBlog(many=True)
+    user_details=UserInfoSerializer(many=True)
+    person_list1=ListFollowing(many=True)
+    person_list2=ListFollow(many=True)
+
+    class Meta:
+        model = User
+        fields = ['id','username','first_name','last_name','author_name','person_list1','person_list2','user_details']
+
+class userPublicInfoserializer(serializers.ModelSerializer):
+
+    user_details= UserInfoSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ['id','username','first_name','last_name','user_details']

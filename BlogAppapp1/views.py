@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth import logout
 from rest_framework import generics
+from rest_framework import filters
 
 # Create your views here.
 class register_new_user(APIView):
@@ -184,6 +185,18 @@ class BlogInfoView(generics.ListAPIView):
         queryset=Blog_info.objects.all()
         _id=self.request.query_params.get('id', '')
         return queryset.filter(id=_id)
+    
+class BlogaddView(APIView):
+
+    def post(self,request):
+        serializer = blogaddserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+
 
 class CreateGroupView(APIView):
 
@@ -229,4 +242,23 @@ class GroupInfoView(generics.ListAPIView):
         queryset = Groups.objects.all()
         group_id = self.request.query_params.get('group_id', '')
         return queryset.filter(group_id=group_id)
+
+class FullProfileInfoView(generics.ListAPIView):
+    serializer_class = GetFullProfileInfoSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        user_id = self.request.query_params.get('user_id','')
+        return queryset.filter(id=user_id)
+
+class BlogSearchView(generics.ListCreateAPIView):
+    queryset = Blog_info.objects.filter(category='public')
+    serializer_class = bloginfoserializer
+    filter_backends =[filters.SearchFilter,]
+    search_fields=['title']
     
+class ProfileSearchView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = userPublicInfoserializer
+    filter_backends =[filters.SearchFilter,]
+    search_fields=['username','first_name','last_name']
