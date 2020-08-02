@@ -43,3 +43,9 @@ class Groups(models.Model):
 class GroupMembers(models.Model):
     group_id = models.ForeignKey(Groups, to_field='group_id', on_delete=models.CASCADE, related_name="members")
     member_id = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="member_info")
+
+class Category(models.Model):
+    category_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.category_name

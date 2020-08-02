@@ -221,13 +221,21 @@ class JoinGroupView(APIView):
                 group = None
             if group is not None:
                 self.object = self.request.user
-                data={'group_id':group.group_id,'member_id':self.object.id}
-                serializer2= GroupMemberSerializer(data=data)
-                if serializer2.is_valid():
-                    serializer2.save()
-                    return Response("Saved")
+                
+                try:
+                    group_row = GroupMembers.objects.filter(group_id=group.group_id, member_id=self.object.id)
+                except GroupMembers.DoesNotExist:
+                    group_row = None
+                if(group_row is None):
+                    data={'group_id':group.group_id,'member_id':self.object.id}
+                    serializer2= GroupMemberSerializer(data=data)
+                    if serializer2.is_valid():
+                        serializer2.save()
+                        return Response("Saved")
+                    else:
+                        return Response(serializer2.errors)
                 else:
-                    return Response(serializer2.errors)
+                    return Response({'status':"Already a member"})
                 return Response("Valid")
             else:
                 return Response("Invalid Code")
@@ -262,3 +270,10 @@ class ProfileSearchView(generics.ListCreateAPIView):
     serializer_class = userPublicInfoserializer
     filter_backends =[filters.SearchFilter,]
     search_fields=['username','first_name','last_name']
+
+class GetCategoryView(APIView):
+
+    def get(self, request):
+        model = Category.objects.all().order_by('category_name')
+        serializer = GetCategorySerializer(model, many= True)
+        return Response(serializer.data)
