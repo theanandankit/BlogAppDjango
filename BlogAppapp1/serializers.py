@@ -192,3 +192,9 @@ class GetCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['category_name','url']
+
+class GetCreatedGroupsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Groups
+        fields = '__all__'
