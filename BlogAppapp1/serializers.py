@@ -34,20 +34,23 @@ class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
 
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User_info
+        fields='__all__'
+
 class EditProfileSerializer(serializers.ModelSerializer):
+    user_details=UserInfoSerializer(many=True)
     class Meta:
         model = User
-        fields = ['username','first_name','last_name']
+        fields = ['username','first_name','last_name','user_details']
+        depth = 1
 
 class GetProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username','first_name','last_name', 'email']
 
-class UserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=User_info
-        fields='__all__'
 
 class GetUserInfoSerializer(serializers.ModelSerializer):
     user_details=UserInfoSerializer(many=True)
@@ -103,7 +106,7 @@ class bloginfoserializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','date','category','author']
+        fields = ['id','url','title','body','status','date','category','author']
         depth = 1
 
 class blogaddserializer(serializers.ModelSerializer):
@@ -145,7 +148,7 @@ class GroupInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Groups
-        fields = ['group_id','group_description','members','creator_id']
+        fields = ['group_id','group_description','members','creator_id','date']
 
 
 # profile full info
@@ -188,4 +191,4 @@ class GetCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['category_name']
+        fields = ['category_name','url']

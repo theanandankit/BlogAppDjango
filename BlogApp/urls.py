@@ -40,5 +40,4 @@ urlpatterns = [
     url(r'^api/search-blog/$',BlogSearchView.as_view(),name='profile_list'),
     url(r'^api/search-profile/$',ProfileSearchView.as_view(),name='profile_list'),
     url(r'^api/get-categories/$',GetCategoryView.as_view(),name='profile_list'),
-    
 ]
