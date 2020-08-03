@@ -277,3 +277,15 @@ class GetCategoryView(APIView):
         model = Category.objects.all().order_by('category_name')
         serializer = GetCategorySerializer(model, many= True)
         return Response(serializer.data)
+
+class GetCreatedGroupsView(generics.ListAPIView):
+
+    serializer_class = GetCreatedGroupsSerializer
+
+    def get_queryset(self):
+        queryset = Groups.objects.all()
+        user_id = self.request.query_params.get('user_id','')
+        return queryset.filter(creator_id=user_id)
+
+    
+    
