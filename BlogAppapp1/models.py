@@ -14,7 +14,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 class User_info(models.Model):
-    user_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="user_details")
+    user_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="user_details",unique=True)
     description=models.CharField(max_length=100, default='Hello There', null=True, blank=True)
     url=models.CharField(max_length=150, null= True, blank=True)
 

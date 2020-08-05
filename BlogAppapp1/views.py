@@ -127,7 +127,7 @@ class GetProfileView(APIView):
             return Response(serializer.data)
 
 class GetUserInfoView(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     serializer_class = GetUserInfoSerializer
 
     def get_queryset(self):
@@ -138,8 +138,10 @@ class GetUserInfoView(generics.ListAPIView):
 class AddUserInfoView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request):
-        serializer = AddUserInfoSerializer(data=request.data)
+    def put(self, request):
+        self.object=User_info.objects.get(user_id=request.data.get("user_id"))
+        # serializer = AddUserInfoSerializer(data=request.data)
+        serializer=UserInfoSerializer(self.object,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
