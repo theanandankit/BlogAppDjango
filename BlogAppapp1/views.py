@@ -289,5 +289,13 @@ class GetCreatedGroupsView(generics.ListAPIView):
         user_id = self.request.query_params.get('user_id','')
         return queryset.filter(creator_id=user_id)
 
+class publicBlogView(generics.ListAPIView):
+    serializer_class = bloginfoserializer
+    
+    def get_queryset(self):
+        queryset = Blog_info.objects.all()
+        return queryset.filter(status="public")
+
+
     
     
