@@ -38,6 +38,7 @@ class Blog_info(models.Model):
 class Groups(models.Model):
     group_id=models.CharField(max_length=10, unique=True)
     group_description=models.CharField(max_length=100)
+    url = models.CharField(max_length=200,default="NA")
     creator_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="creator_details")
     group_code=models.CharField(max_length=6)
     date = models.DateTimeField(auto_now_add=True)
