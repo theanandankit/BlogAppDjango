@@ -148,7 +148,7 @@ class AddUserInfoView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class FollowView(generics.ListAPIView):
-    permission_classes=(IsAuthenticated,)
+    # permission_classes=(IsAuthenticated,)
     serializer_class = follownestedSerializer
 
     def get_queryset(self):
@@ -157,7 +157,7 @@ class FollowView(generics.ListAPIView):
         return queryset.filter(id=user_id)
 
 class FollowingView(generics.ListAPIView):
-    permission_classes=(IsAuthenticated,)
+    # permission_classes=(IsAuthenticated,)
     serializer_class = followingnestedSerializer
 
     def get_queryset(self):
@@ -262,10 +262,14 @@ class FullProfileInfoView(generics.ListAPIView):
         return queryset.filter(id=user_id)
 
 class BlogSearchView(generics.ListCreateAPIView):
-    queryset = Blog_info.objects.filter(category='public')
     serializer_class = bloginfoserializer
     filter_backends =[filters.SearchFilter,]
     search_fields=['title']
+
+    def get_queryset(self):
+        category=self.request.query_params.get('category','food')
+        queryset=Blog_info.objects.all()
+        return queryset.filter(status='public',category=category)
     
 class ProfileSearchView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -294,7 +298,7 @@ class publicBlogView(generics.ListAPIView):
     
     def get_queryset(self):
         queryset = Blog_info.objects.all()
-        return queryset.filter(status="public")
+        return queryset.filter(status="public").order_by("date")
 
 
     
