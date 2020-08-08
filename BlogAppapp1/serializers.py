@@ -198,3 +198,4 @@ class GetCreatedGroupsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Groups
         fields = '__all__'
+        depth=1

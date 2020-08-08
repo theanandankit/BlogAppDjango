@@ -43,4 +43,5 @@ urlpatterns = [
     url(r'^api/get-categories/$',GetCategoryView.as_view(),name='profile_list'),
     url(r'^api/get-created-groups/$',GetCreatedGroupsView.as_view(),name='profile_list'),
     url(r'^api/public-blog/$',publicBlogView.as_view(),name='profile_list'),
+    url(r'^api/group-list/$',Grouplistview.as_view(),name='profile_list'),
 ]
