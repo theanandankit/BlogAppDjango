@@ -300,6 +300,14 @@ class publicBlogView(generics.ListAPIView):
         queryset = Blog_info.objects.all()
         return queryset.filter(status="public").order_by("date")
 
+class Grouplistview(generics.ListAPIView):
+    serializer_class = CreateGroupSerializer
+
+    def get_queryset(self):
+        queryset = Groups.objects.all()
+        user_id=self.request.query_params.get('user_id')
+        return queryset.filter(creator_id=user_id)
+
 
     
     
