@@ -167,7 +167,7 @@ class ListOfBlog(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','category','author']
+        fields = ['id','url','title','body','category','date','author']
 
 class GetFullProfileInfoSerializer(serializers.ModelSerializer):
 
