@@ -106,7 +106,7 @@ class bloginfoserializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','status','date','category','author']
+        fields = ['id','url','title','body','status','date','category','author','status','group']
         depth = 1
 
 class blogaddserializer(serializers.ModelSerializer):
