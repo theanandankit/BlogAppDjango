@@ -234,7 +234,7 @@ class JoinGroupView(APIView):
                     serializer2= GroupMemberSerializer(data=data)
                     if serializer2.is_valid():
                         serializer2.save()
-                        return Response("Saved")
+                        return Response({'status':"Saved"})
                     else:
                         return Response(serializer2.errors)
                 else:
