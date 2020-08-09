@@ -223,9 +223,10 @@ class JoinGroupView(APIView):
                 group = None
             if group is not None:
                 self.object = self.request.user
+                group_row=None
                 
                 try:
-                    group_row = GroupMembers.objects.filter(group_id=group.group_id, member_id=self.object.id)
+                    group_row = GroupMembers.objects.filter(group_id=group.group_id, member_id=self.object.id).first()
                 except GroupMembers.DoesNotExist:
                     group_row = None
                 if(group_row is None):
