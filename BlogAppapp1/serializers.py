@@ -112,7 +112,7 @@ class bloginfoserializer(serializers.ModelSerializer):
 class blogaddserializer(serializers.ModelSerializer):
     class Meta:
         model = Blog_info
-        fields = ['url','title','body','category','author']
+        fields = ['url','title','body','category','author','status','group']
 
 class CreateGroupSerializer(serializers.ModelSerializer):
 
@@ -167,7 +167,7 @@ class ListOfBlog(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','category','date','author','state']
+        fields = ['id','url','title','body','category','date','author','status']
 
 class GetFullProfileInfoSerializer(serializers.ModelSerializer):
 
