@@ -308,6 +308,11 @@ class Grouplistview(generics.ListAPIView):
         user_id=self.request.query_params.get('user_id')
         return queryset.filter(creator_id=user_id)
 
+class GroupsBlogView(generics.ListAPIView):
 
-    
-    
+    serializer_class=GroupsBlogSerializer
+
+    def get_queryset(self):
+        queryset = Groups.objects.all()
+        id=self.request.query_params.get('group_id','')
+        return queryset.filter(group_id=id)
