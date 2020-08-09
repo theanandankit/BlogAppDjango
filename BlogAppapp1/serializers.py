@@ -167,7 +167,7 @@ class ListOfBlog(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','category','date','author']
+        fields = ['id','url','title','body','category','date','author','status']
 
 class GetFullProfileInfoSerializer(serializers.ModelSerializer):
 
@@ -202,3 +202,11 @@ class GetCreatedGroupsSerializer(serializers.ModelSerializer):
         model = Groups
         fields = '__all__'
         depth=1
+
+class GroupsBlogSerializer(serializers.ModelSerializer):
+
+    groups=ListOfBlog(many=True)
+
+    class Meta:
+        model = Groups
+        fields = ['group_id','group_description','members','creator_id','date','groups']

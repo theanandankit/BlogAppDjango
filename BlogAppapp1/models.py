@@ -26,6 +26,14 @@ class Following_info(models.Model):
     who=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='person_list1')
     whom=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='person_list2')
 
+class Groups(models.Model):
+    group_id=models.CharField(max_length=10, unique=True)
+    group_description=models.CharField(max_length=100)
+    url = models.CharField(max_length=200,default="NA")
+    creator_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="creator_details")
+    group_code=models.CharField(max_length=6)
+    date = models.DateTimeField(auto_now_add=True)
+
 class Blog_info(models.Model):
     url=models.CharField(max_length=150)
     title=models.CharField(max_length=50)
@@ -34,14 +42,7 @@ class Blog_info(models.Model):
     category=models.CharField(max_length=20)
     status=models.CharField(max_length=20,default='public')
     author=models.ForeignKey(User,to_field='id',on_delete=models.CASCADE, related_name='author_name')
-
-class Groups(models.Model):
-    group_id=models.CharField(max_length=10, unique=True)
-    group_description=models.CharField(max_length=100)
-    url = models.CharField(max_length=200,default="NA")
-    creator_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="creator_details")
-    group_code=models.CharField(max_length=6)
-    date = models.DateTimeField(auto_now_add=True)
+    group = models.ForeignKey(Groups,to_field='group_id',on_delete=models.CASCADE,related_name='groups')
 
 class GroupMembers(models.Model):
     group_id = models.ForeignKey(Groups, to_field='group_id', on_delete=models.CASCADE, related_name="members")
