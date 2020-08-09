@@ -171,7 +171,7 @@ class register_Follow(APIView):
         val= {}
         if serializers.is_valid():
             users=serializers.save()
-            val['Response']="Successfully follow"
+            val['Response']="Success"
             return Response(val)
         else:
             val= serializers.errors
@@ -226,9 +226,10 @@ class JoinGroupView(APIView):
                 
                 try:
                     group_row = GroupMembers.objects.filter(group_id=group.group_id, member_id=self.object.id)
+                    print(group_row)
                 except GroupMembers.DoesNotExist:
                     group_row = None
-                if(group_row is None):
+                if group_row is None:
                     data={'group_id':group.group_id,'member_id':self.object.id}
                     serializer2= GroupMemberSerializer(data=data)
                     if serializer2.is_valid():
