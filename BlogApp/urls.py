@@ -45,4 +45,5 @@ urlpatterns = [
     url(r'^api/public-blog/$',publicBlogView.as_view(),name='profile_list'),
     url(r'^api/group-list/$',Grouplistview.as_view(),name='profile_list'),
     url(r'^api/group-blog/$',GroupsBlogView.as_view(),name='profile_list'),
+    url(r'^api/check-follow/$',FollowCheckView.as_view(),name='profile_list'),
 ]

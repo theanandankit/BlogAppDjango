@@ -82,18 +82,11 @@ class ChangePasswordView(APIView):
             if serializer.is_valid():
                 # Check old password
                 if not self.object.check_password(serializer.data.get("old_password")):
-                    return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'Response':'Wrong password'})
                 # set_password also hashes the password that the user will get
                 self.object.set_password(serializer.data.get("new_password"))
                 self.object.save()
-                response = {
-                    'status': 'success',
-                    'code': status.HTTP_200_OK,
-                    'message': 'Password updated successfully',
-                    'data': []
-                }
-
-                return Response(response)
+                return Response({'Response':'Password change'})
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -171,7 +164,7 @@ class register_Follow(APIView):
         val= {}
         if serializers.is_valid():
             users=serializers.save()
-            val['Response']="Successfully follow"
+            val['Response']="Success"
             return Response(val)
         else:
             val= serializers.errors
@@ -229,7 +222,7 @@ class JoinGroupView(APIView):
                     group_row = GroupMembers.objects.filter(group_id=group.group_id, member_id=self.object.id).first()
                 except GroupMembers.DoesNotExist:
                     group_row = None
-                if(group_row is None):
+                if group_row is None:
                     data={'group_id':group.group_id,'member_id':self.object.id}
                     serializer2= GroupMemberSerializer(data=data)
                     if serializer2.is_valid():
@@ -317,3 +310,19 @@ class GroupsBlogView(generics.ListAPIView):
         queryset = Groups.objects.all()
         id=self.request.query_params.get('group_id','')
         return queryset.filter(group_id=id)
+
+class FollowCheckView(generics.ListAPIView):
+
+    serializer_class=followtableserializer
+
+    def get_queryset(self):
+        queryset = Following_info.objects.all()
+        print("--------------------------")
+        print(queryset)
+        request_who = self.request.query_params.get('who','')
+        request_whom = self.request.query_params.get('whom','')
+        value = queryset.filter(who=request_who,whom=request_whom)
+        if value is None:
+            return ({'Response':'ok'})
+        else:
+            return ({'Response':'Not found'})

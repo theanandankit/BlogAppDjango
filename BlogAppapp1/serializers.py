@@ -106,7 +106,7 @@ class bloginfoserializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','status','date','category','author']
+        fields = ['id','url','title','body','status','date','category','author','status','group']
         depth = 1
 
 class blogaddserializer(serializers.ModelSerializer):
@@ -118,7 +118,7 @@ class CreateGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Groups
-        fields = ['group_id','group_description','creator_id','group_code']
+        fields = ['group_id','group_description','creator_id','group_code','date']
 
 class JoinGroupSerializer(serializers.ModelSerializer):
     class Meta:
