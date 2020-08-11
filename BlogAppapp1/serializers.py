@@ -104,6 +104,8 @@ class followtableserializer(serializers.ModelSerializer):
 
 class bloginfoserializer(serializers.ModelSerializer):
 
+    author=GetUserInfoSerializer()
+
     class Meta:
         model = Blog_info
         fields = ['id','url','title','body','status','date','category','author','status','group']
