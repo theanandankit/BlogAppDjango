@@ -16,7 +16,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 class User_info(models.Model):
     user_id=models.ForeignKey(User, to_field='id', on_delete=models.CASCADE, related_name="user_details",unique=True)
     description=models.CharField(max_length=100, default='Hello There', null=True, blank=True)
-    url=models.CharField(max_length=150, null= True, blank=True)
+    url=models.CharField(max_length=500, null= True, blank=True)
 
     def __str__(self):
         return self.description
@@ -35,7 +35,7 @@ class Groups(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 class Blog_info(models.Model):
-    url=models.CharField(max_length=150)
+    url=models.CharField(max_length=500)
     title=models.CharField(max_length=50)
     body=models.CharField(max_length=2000)
     date=models.DateField(auto_now_add=True)
@@ -50,7 +50,7 @@ class GroupMembers(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=500)
 
     def __str__(self):
         return self.category_name
