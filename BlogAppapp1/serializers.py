@@ -167,13 +167,17 @@ class ListFollowing(serializers.ModelSerializer):
 
 
 class AuthorNameOnlySerializer(serializers.ModelSerializer):
+
+
+
     class Meta:
+
         model = User
         fields = ['first_name','last_name']
 
 class ListOfBlog(serializers.ModelSerializer):
 
-    author = AuthorNameOnlySerializer()
+    author=GetUserInfoSerializer()
 
     class Meta:
         model = Blog_info
