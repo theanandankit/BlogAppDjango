@@ -317,12 +317,7 @@ class FollowCheckView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Following_info.objects.all()
-        print("--------------------------")
-        print(queryset)
         request_who = self.request.query_params.get('who','')
         request_whom = self.request.query_params.get('whom','')
-        value = queryset.filter(who=request_who,whom=request_whom)
-        if value is None:
-            return ({'Response':'ok'})
-        else:
-            return ({'Response':'Not found'})
+        value = queryset.filter(who=request_who,whom=request_whom).first()
+        return value
