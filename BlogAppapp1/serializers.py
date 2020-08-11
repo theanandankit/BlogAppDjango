@@ -69,11 +69,11 @@ class AddUserInfoSerializer(serializers.ModelSerializer):
 
 class followSerializer(serializers.ModelSerializer):
 
-    
+    who=GetUserInfoSerializer()
+
     class Meta:
         model = Following_info
         fields=['who']
-        depth=1
 
 class follownestedSerializer(serializers.ModelSerializer):
     person_list2=followSerializer(many=True)
@@ -83,10 +83,11 @@ class follownestedSerializer(serializers.ModelSerializer):
 
 class followingSerializer(serializers.ModelSerializer):
 
+    whom=GetUserInfoSerializer()
+
     class Meta:
         model = Following_info
         fields=['whom']
-        depth = 1
 
 class followingnestedSerializer(serializers.ModelSerializer):
     person_list1=followingSerializer(many=True)
@@ -181,7 +182,7 @@ class ListOfBlog(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','body','category','date','author','status']
+        fields = ['id','url','title','category','date','author','status']
 
 class GetFullProfileInfoSerializer(serializers.ModelSerializer):
 
