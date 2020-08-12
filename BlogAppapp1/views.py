@@ -162,6 +162,10 @@ class register_Follow(APIView):
     def post(self, request):
         serializers=followtableserializer(data=request.data)
         val= {}
+        if Following_info.objects.filter(who=request.data.get('who'),whom=request.data.get('whom')).exists():
+            val['Response']="Already exist"
+            return Response(val)
+
         if serializers.is_valid():
             users=serializers.save()
             val['Response']="Success"
@@ -319,14 +323,15 @@ class GroupsBlogView(generics.ListAPIView):
 
 class FollowCheckView(generics.ListAPIView):
 
-    serializer_class=followtableserializer
-
-    def get_queryset(self):
-        queryset = Following_info.objects.all()
-        request_who = self.request.query_params.get('who','')
-        request_whom = self.request.query_params.get('whom','')
-        value = queryset.filter(who=request_who,whom=request_whom).first()
-        return value
+     def post(self, request):
+        serializers=followtableserializer(data=request.data)
+        val= {}
+        if Following_info.objects.filter(who=request.data.get('who'),whom=request.data.get('whom')).exists():
+            val['Response']="Already exist"
+            return Response(val)
+        else:
+            val['Response']="Not exist"
+            return Response(val)
 
 class GroupsMemberList(generics.ListAPIView):
 
