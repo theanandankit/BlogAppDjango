@@ -225,3 +225,20 @@ class GroupsBlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Groups
         fields = ['group_id','group_description','members','creator_id','date','groups']
+
+
+class memberdetials(serializers.ModelSerializer):
+
+    class Meta:
+        model = GroupMembers
+        fields =['group_id']
+        depth=1
+
+class meme(serializers.ModelSerializer):
+
+     member_info = memberdetials
+
+     class Meta:
+        model = User
+        fields = ['first_name','id','member_info'] 
+        depth=2
