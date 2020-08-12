@@ -197,8 +197,14 @@ class CreateGroupView(APIView):
 
     def post(self,request):
         serializer = CreateGroupSerializer(data=request.data)
+        self.object  = self.request.user
+        
         if serializer.is_valid():
             serializer.save()
+            data={'group_id':request.data['group_id'],'member_id':request.data['creator_id']}
+            serializer2= GroupMemberSerializer(data=data)
+            if serializer2.is_valid():
+                serializer2.save()
             return Response(serializer.data.get('group_code'))
         else:
             return Response(serializer.errors)
