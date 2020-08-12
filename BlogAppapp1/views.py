@@ -321,3 +321,12 @@ class FollowCheckView(generics.ListAPIView):
         request_whom = self.request.query_params.get('whom','')
         value = queryset.filter(who=request_who,whom=request_whom).first()
         return value
+
+class GroupsMemberList(generics.ListAPIView):
+
+    serializer_class=meme
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        user_id=self.request.query_params.get('user_id','')
+        return queryset.filter(id=user_id)
