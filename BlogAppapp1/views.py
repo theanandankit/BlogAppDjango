@@ -296,9 +296,13 @@ class GetCreatedGroupsView(generics.ListAPIView):
         user_id = self.request.query_params.get('user_id','')
         return queryset.filter(creator_id=user_id)
 
+class PublicPagination(PageNumberPagination):
+    page_size = 8
+    page_size_query_param = 'page_size'
+
 class publicBlogView(generics.ListAPIView):
     serializer_class = bloginfoserializer
-    pagination_class=PageNumberPagination
+    pagination_class=PublicPagination
     
     def get_queryset(self):
         queryset = Blog_info.objects.all()
