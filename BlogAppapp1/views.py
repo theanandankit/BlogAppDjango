@@ -13,6 +13,7 @@ import datetime
 from django.contrib.auth import logout
 from rest_framework import generics
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 class register_new_user(APIView):
@@ -297,10 +298,11 @@ class GetCreatedGroupsView(generics.ListAPIView):
 
 class publicBlogView(generics.ListAPIView):
     serializer_class = bloginfoserializer
+    pagination_class=PageNumberPagination
     
     def get_queryset(self):
         queryset = Blog_info.objects.all()
-        return queryset.filter(status="public").order_by("date")
+        return queryset.filter(status="public").order_by("-date")
 
 class Grouplistview(generics.ListAPIView):
     serializer_class = CreateGroupSerializer
