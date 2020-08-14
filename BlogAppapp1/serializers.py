@@ -144,14 +144,22 @@ class GroupMemberInfoSerializer(serializers.ModelSerializer):
         fields = ['member_id']
         depth =1
 
+class AuthorNameOnlySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['first_name','last_name']
 
 
 class GroupInfoSerializer(serializers.ModelSerializer):
-    members = GroupMemberInfoSerializer(many=True)
 
-    class Meta:
+     creator_id = AuthorNameOnlySerializer
+
+     class Meta:
         model = Groups
-        fields = ['group_id','group_description','members','creator_id','date']
+        fields = ['group_id','group_description','creator_id','date','url']
+        depth=1
+
 
 
 # profile full info
@@ -165,16 +173,6 @@ class ListFollowing(serializers.ModelSerializer):
     class Meta:
         model = Following_info
         fields = ['whom']
-
-
-class AuthorNameOnlySerializer(serializers.ModelSerializer):
-
-
-
-    class Meta:
-
-        model = User
-        fields = ['first_name','last_name']
 
 class ListOfBlog(serializers.ModelSerializer):
 
