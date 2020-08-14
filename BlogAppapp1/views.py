@@ -109,9 +109,7 @@ class EditProfileView(APIView):
 
 class GetProfileView(APIView):
 
-
         permission_classes = (IsAuthenticated,)
-
         def get(self, request):
             token = request.META['HTTP_AUTHORIZATION']
             token = token[6:]
