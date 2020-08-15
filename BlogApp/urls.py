@@ -48,4 +48,5 @@ urlpatterns = [
     url(r'^api/check-follow/$',FollowCheckView.as_view(),name='profile_list'),
     url(r'^api/group-member-list/$',GroupsMemberList.as_view(),name='profile_list'),
     url(r'^api/category-blog/$',BlogCategoriesList.as_view(),name='profile_list'),
+    url(r'^api/unfollow/$',DeleteFollowView.as_view(),name='Unfollow person'),
 ]
