@@ -345,3 +345,13 @@ class GroupsMemberList(generics.ListAPIView):
         queryset = User.objects.all()
         user_id=self.request.query_params.get('user_id','')
         return queryset.filter(id=user_id)
+
+
+class BlogCategoriesList(generics.ListAPIView):
+    serializer_class = bloginfoserializer
+    pagination_class=PublicPagination
+    
+    def get_queryset(self):
+        queryset = Blog_info.objects.all()
+        request_category=self.request.query_params.get('category')
+        return queryset.filter(status="public",category=request_category).order_by("-date")
