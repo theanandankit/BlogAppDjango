@@ -336,6 +336,17 @@ class FollowCheckView(generics.ListAPIView):
         else:
             val['Response']="Not exist"
             return Response(val)
+     def delete(self,request):
+        serializers=followtableserializer(data=request.data)
+        val= {}
+        if Following_info.objects.filter(who=request.data.get('who'),whom=request.data.get('whom')).exists():
+            print(request.data.get('who'))
+            Following_info.objects.filter(who=request.data.get('who'),whom=request.data.get('whom')).delete()
+            val['Response']="Deleted"
+        else:
+            val["Response"]="User don't exist"
+        return Response(val)
+
 
 class GroupsMemberList(generics.ListAPIView):
 
@@ -355,3 +366,4 @@ class BlogCategoriesList(generics.ListAPIView):
         queryset = Blog_info.objects.all()
         request_category=self.request.query_params.get('category')
         return queryset.filter(status="public",category=request_category).order_by("-date")
+
