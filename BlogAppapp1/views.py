@@ -58,7 +58,7 @@ class login(APIView):
                     val['Id']= self.object.id
                     if User_info.objects.filter(user_id=self.object.id).exists():
                         val['status']="found"
-                        return Response(val,status=status.HTTP_302_FOUND)
+                        return Response(val,status=status.HTTP_202_ACCEPTED)
                     else:
                         val['status']="Not"
                         return Response(val,status=status.HTTP_202_ACCEPTED)
