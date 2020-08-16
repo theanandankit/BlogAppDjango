@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^api/edit-profile/$',EditProfileView.as_view(),name='profile_list'),
     url(r'^api/get-profile/$',GetProfileView.as_view(),name='profile_list'),
     url(r'^api/get-user-info/$',GetUserInfoView.as_view(),name='profile_list'),
-    url(r'^api/add-user-info/$',AddUserInfoView.as_view(),name='profile_list'),
+    url(r'^api/edit-user-info/$',EditUserInfoView.as_view(),name='profile_list'),
     url(r'^api/follow-list/$',FollowView.as_view(),name='profile_list'),
     url(r'^api/following-list/$',FollowingView.as_view(),name='profile_list'),
     url(r'^api/start-follow/$',register_Follow.as_view(),name='profile_list'),
@@ -49,4 +49,6 @@ urlpatterns = [
     url(r'^api/group-member-list/$',GroupsMemberList.as_view(),name='profile_list'),
     url(r'^api/category-blog/$',BlogCategoriesList.as_view(),name='profile_list'),
     url(r'^api/unfollow/$',DeleteFollowView.as_view(),name='Unfollow person'),
+    url(r'^api/add-user-info/$',AddUserInfoView.as_view(),name='add User Info'),
+    url(r'^api/profile-check/$',ProfileInfoCheck.as_view(),name='User Exist'),
 ]

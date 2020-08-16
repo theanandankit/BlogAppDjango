@@ -127,7 +127,7 @@ class GetUserInfoView(generics.ListAPIView):
         user_id=self.request.query_params.get('user_id', '')
         return queryset.filter(id=user_id)
 
-class AddUserInfoView(APIView):
+class EditUserInfoView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def put(self, request):
@@ -193,8 +193,6 @@ class BlogaddView(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
-
-
 
 class CreateGroupView(APIView):
 
@@ -379,6 +377,22 @@ class DeleteFollowView(generics.ListAPIView):
             val["Response"]="User don't exist"
         return Response(val)
 
+class AddUserInfoView(APIView):
+    permission_classes = (IsAuthenticated,)
 
+    def post(self, request):
+        serializer=UserInfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class ProfileInfoCheck(APIView):
 
+    def post(self,request):
+        val= {}
+        if User_info.objects.filter(user_id=request.data.get('user_id')).exists():
+            val['Response']="exist"
+        else:
+            val["Response"]="User don't exist"
+        return Response(val)
