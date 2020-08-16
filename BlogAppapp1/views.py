@@ -301,7 +301,7 @@ class PublicPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
 
 class publicBlogView(generics.ListAPIView):
-    serializer_class = bloginfoserializer
+    serializer_class = publicblogserializer
     pagination_class=PublicPagination
     
     def get_queryset(self):

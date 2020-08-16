@@ -109,7 +109,7 @@ class bloginfoserializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog_info
-        fields = ['id','url','title','status','date','category','author','status']
+        fields = ['id','url','title','status','date','category','author','status','body']
         depth = 1
 
 class blogaddserializer(serializers.ModelSerializer):
@@ -240,3 +240,12 @@ class meme(serializers.ModelSerializer):
         model = User
         fields = ['first_name','id','member_info'] 
         depth=2
+
+class publicblogserializer(serializers.ModelSerializer):
+
+    author=GetUserInfoSerializer()
+
+    class Meta:
+        model = Blog_info
+        fields = ['id','url','title','status','date','category','author','status']
+        depth = 1
