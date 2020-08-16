@@ -56,9 +56,12 @@ class login(APIView):
                     val={}
                     val['Token']=Token.objects.get(user=self.object).key
                     val['Id']= self.object.id
-                    return Response(val)
+                    if User_info.objects.filter(user_id=self.object.id).exists():
+                        return Response(val,status=status.HTTP_302_FOUND)
+                    else:
+                        return Response(val,status=status.HTTP_202_ACCEPTED)
                 else:
-                    return Response({'error':'Incorrect password'})
+                    return Response({'error':'Incorrect password'},status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
         
