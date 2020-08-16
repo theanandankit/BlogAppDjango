@@ -57,8 +57,10 @@ class login(APIView):
                     val['Token']=Token.objects.get(user=self.object).key
                     val['Id']= self.object.id
                     if User_info.objects.filter(user_id=self.object.id).exists():
+                        val['status']="found"
                         return Response(val,status=status.HTTP_302_FOUND)
                     else:
+                        val['status']="Not"
                         return Response(val,status=status.HTTP_202_ACCEPTED)
                 else:
                     return Response({'error':'Incorrect password'},status=status.HTTP_404_NOT_FOUND)
