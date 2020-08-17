@@ -121,7 +121,7 @@ class CreateGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Groups
-        fields = ['group_id','group_description','creator_id','group_code','date']
+        fields = ['group_id','group_description','creator_id','group_code','date','url']
 
 class JoinGroupSerializer(serializers.ModelSerializer):
     class Meta:
